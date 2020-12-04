@@ -46,7 +46,10 @@ class MagnitParse:
     def to_datetime(self, text):
         day = int(text.split(' ')[1])
         month = self.months_template[text.split(' ')[2]]
-        return dt.datetime(dt.datetime.now().year, month, day)
+        if month > 10:
+            return dt.datetime(dt.datetime.now().year, month, day)
+        if month < 10:
+            return dt.datetime(dt.datetime.now().year + 1, month, day)
 
     @staticmethod
     def _get(*args, **kwargs):
