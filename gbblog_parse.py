@@ -75,7 +75,8 @@ class GbBlogParse:
                 'name': soup.find('div', attrs={'itemprop': 'author'}).text,
                 'url': urljoin(self.start_url, soup.find('div', attrs={'itemprop': 'author'}).parent.get('href'))
             },
-            'image': soup.find('img').get('src'),
+            'image': soup.find('div', attrs={'class': 'blogpost-content'}).find('img').get('src') if soup.find(
+                    'div', attrs={'class': 'blogpost-content'}).find('img') else None,
             'date': dt.datetime.strptime(soup.find('time').get('datetime'), '%Y-%m-%dT%H:%M:%S%z'),
             'tags': [],
             'comments': []
