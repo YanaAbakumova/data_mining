@@ -64,7 +64,7 @@ class InstagramSpider(scrapy.Spider):
                 variables = {
                     'id': user_data['id'],
                     'first': 100,
-                    'end_cursor': data['data']['user']['edge_followed_by']['page_info']['end_cursor']}
+                    'after': data['data']['user']['edge_followed_by']['page_info']['end_cursor']}
                 yield response.follow(
                     f'/graphql/query/?query_hash={self.query_hash["followers"]}&variables={json.dumps(variables)}',
                     callback=self.get_followers, cb_kwargs={'user_data': user_data})
@@ -99,7 +99,7 @@ class InstagramSpider(scrapy.Spider):
                 variables = {
                     'id': user_data['id'],
                     'first': 100,
-                    'end_cursor': data['data']['user']['edge_follow']['page_info']['end_cursor']}
+                    'after': data['data']['user']['edge_follow']['page_info']['end_cursor']}
                 yield response.follow(
                     f'/graphql/query/?query_hash={self.query_hash["following"]}&variables={json.dumps(variables)}',
                     callback=self.get_following, cb_kwargs={'user_data': user_data})
